@@ -1,0 +1,18 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: .docker/node/Dockerfile
+    tty: true
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    ports:
+      - target: 3000
+        published: ${WEB_PUBLISHED_PORT:-3000}
+        protocol: tcp
+        mode: host
+    working_dir: /app/
+    # command: npm run dev
